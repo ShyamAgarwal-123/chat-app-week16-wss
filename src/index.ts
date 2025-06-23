@@ -31,7 +31,7 @@ wss.on("connection", function (socket, req) {
       console.log(allRoom);
     }
 
-    if (ms.type === "message") {
+    if (ms.type === "chat") {
       const roomSocket = allRoom[ms.payload.room];
       if (roomSocket) {
         roomSocket.forEach((sc) => {
