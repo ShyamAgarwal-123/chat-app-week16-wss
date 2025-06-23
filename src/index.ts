@@ -26,8 +26,9 @@ wss.on("connection", function (socket, req) {
     if (ms.type === "join") {
       if (!allRoom[ms.payload.room]) {
         allRoom[ms.payload.room] = [socket];
+      } else {
+        allRoom[ms.payload.room].push(socket);
       }
-      allRoom[ms.payload.room].push(socket);
       console.log(allRoom);
     }
 
