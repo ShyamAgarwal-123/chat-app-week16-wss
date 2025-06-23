@@ -1,6 +1,7 @@
 import { WebSocket, WebSocketServer } from "ws";
 
-const wss = new WebSocketServer({ port: 8081 });
+const port = process.env.PORT ? Number(process.env.PORT) : 8080;
+const wss = new WebSocketServer({ port });
 
 type PayloadType = {
   room: string;
