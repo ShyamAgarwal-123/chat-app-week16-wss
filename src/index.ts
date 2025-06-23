@@ -20,6 +20,7 @@ wss.on("connection", function (socket, req) {
 
     try {
       ms = JSON.parse(data.toString());
+      console.log(ms);
     } catch (error) {
       return;
     }
@@ -27,14 +28,17 @@ wss.on("connection", function (socket, req) {
     if (ms.type === "join") {
       if (!allRoom[ms.payload.room]) {
         allRoom[ms.payload.room] = [socket];
+      } else if (allRoom[ms.payload.room].includes(socket)) {
+        return;
       } else {
         allRoom[ms.payload.room].push(socket);
       }
       console.log(allRoom);
     }
-
-    if (ms.type === "chat") {
+    if (ms.type === "chat" && ms.payload.message) {
       const roomSocket = allRoom[ms.payload.room];
+      console.log(roomSocket);
+
       if (roomSocket) {
         roomSocket.forEach((sc) => {
           if (sc !== socket) {
